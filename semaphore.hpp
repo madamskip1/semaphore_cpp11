@@ -95,3 +95,5 @@ private:
     std::mutex mutex;
     std::condition_variable conditionVariable;
 };
+
+using BinarySemaphore = CountingSemaphore<1>;
