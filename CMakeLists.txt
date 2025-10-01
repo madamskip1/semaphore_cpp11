@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10.0)
 
 project(MA_Semaphore_Cpp11
-    VERSION 0.1.0
+    VERSION 1.0.0
     LANGUAGES CXX
 )
 

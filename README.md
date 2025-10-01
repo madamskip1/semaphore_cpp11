@@ -25,7 +25,7 @@ include(FetchContent)
 FetchContent_Declare(
   MA_Sepahore_Cpp11
   GIT_REPOSITORY https://github.com/madamskip1/semaphore_cpp11.git
-  GIT_TAG        v0.1.0
+  GIT_TAG        v1.0.0
 )
 
 FetchContent_MakeAvailable(MA_Sepahore_Cpp11)
