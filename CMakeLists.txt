@@ -7,3 +7,6 @@ add_library(CountingSemaphore_Cpp11 INTERFACE)
 target_include_directories(CountingSemaphore_Cpp11 INTERFACE
     include
 )
+
+enable_testing()
+add_subdirectory(tests)
