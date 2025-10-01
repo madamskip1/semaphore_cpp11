@@ -6,6 +6,8 @@
 #include <cstddef>
 #include <mutex>
 
+namespace MA {
+
 template <std::ptrdiff_t LeastMaxValue = std::numeric_limits<std::ptrdiff_t>::max()>
 class counting_semaphore {
 public:
@@ -21,21 +23,20 @@ public:
     void release(const std::ptrdiff_t update = 1)
     {
         {
-            std::lock_guard<std::mutex> lock{ mutex };
+            std::lock_guard<std::mutex> lock { mutex };
             assert(update >= 0 && update <= (LeastMaxValue - counter));
 
             counter += update;
         }
 
-        for (auto i = std::ptrdiff_t { 0 }; i < update; ++i)
-        {
+        for (auto i = std::ptrdiff_t { 0 }; i < update; ++i) {
             conditionVariable.notify_one();
         }
     }
 
     void acquire()
     {
-        std::unique_lock<std::mutex> lock{ mutex };
+        std::unique_lock<std::mutex> lock { mutex };
 
         conditionVariable.wait(lock, [this]() { return counter > 0; });
         --counter;
@@ -43,10 +44,9 @@ public:
 
     bool try_acquire() noexcept
     {
-        std::lock_guard<std::mutex> lock{ mutex };
+        std::lock_guard<std::mutex> lock { mutex };
 
-        if (counter == 0)
-        {
+        if (counter == 0) {
             return false;
         }
 
@@ -60,8 +60,7 @@ public:
         std::unique_lock<std::mutex> lock { mutex };
 
         auto acquired = conditionVariable.wait_for(lock, rel_time, [this]() { return counter > 0; });
-        if (!acquired)
-        {
+        if (!acquired) {
             return false;
         }
 
@@ -75,8 +74,7 @@ public:
         std::unique_lock<std::mutex> lock { mutex };
 
         auto acquired = conditionVariable.wait_until(lock, abs_time, [this]() { return counter > 0; });
-        if (!acquired)
-        {
+        if (!acquired) {
             return false;
         }
 
@@ -96,3 +94,5 @@ private:
 };
 
 using binary_semaphore = counting_semaphore<1>;
+
+}
