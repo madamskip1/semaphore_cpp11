@@ -9,18 +9,18 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 
-add_executable(CountingSemaphore_Cxx11_tests)
+add_executable(Semaphore_Cpp11_tests)
 
-target_sources(CountingSemaphore_Cxx11_tests
+target_sources(Semaphore_Cpp11_tests
     PRIVATE
         tests.cpp
 )
 
-target_link_libraries(CountingSemaphore_Cxx11_tests
+target_link_libraries(Semaphore_Cpp11_tests
     PRIVATE
         gtest_main
-        CountingSemaphore_Cxx11
+        Semaphore_Cpp11
 )
 
 include(GoogleTest)
-gtest_discover_tests(CountingSemaphore_Cxx11_tests)
+gtest_discover_tests(Semaphore_Cpp11_tests)

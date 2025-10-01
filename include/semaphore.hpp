@@ -7,17 +7,16 @@
 #include <mutex>
 
 template <std::ptrdiff_t LeastMaxValue = std::numeric_limits<std::ptrdiff_t>::max()>
-class CountingSemaphore
-{
+class counting_semaphore {
 public:
-    explicit CountingSemaphore(const std::ptrdiff_t desired)
+    explicit counting_semaphore(const std::ptrdiff_t desired)
         : counter { desired }
     {
         assert(desired >= 0 && desired <= LeastMaxValue);
     }
 
-    CountingSemaphore(const CountingSemaphore&) = delete;
-    CountingSemaphore& operator=(const CountingSemaphore&) = delete;
+    counting_semaphore(const counting_semaphore&) = delete;
+    counting_semaphore& operator=(const counting_semaphore&) = delete;
 
     void release(const std::ptrdiff_t update = 1)
     {
@@ -96,4 +95,4 @@ private:
     std::condition_variable conditionVariable;
 };
 
-using BinarySemaphore = CountingSemaphore<1>;
+using binary_semaphore = counting_semaphore<1>;
